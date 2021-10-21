@@ -1,10 +1,6 @@
 export default class ListVideosItemDTO {
-    descricao: string = ''
-    categoriaId: number = -1
-    titulo: string = ''
+    description: string = ''
+    categoryId: number = -1
+    title: string = ''
     url: string = ''
   }
-// videoList.descricao
-// videoList.titulo
-// videoList.url
-// videoList.categoriaId

@@ -1,7 +1,7 @@
 <template>
   <v-card>
-    <v-card-title class="te">
-      {{videoList.titulo}}
+    <v-card-title>
+      {{videoList.title}}
     </v-card-title>
     <v-card-text>
       <v-card>
@@ -9,9 +9,9 @@
           Video Panel
         </a>
       </v-card>
-      <p>{{videoList.descricao}}</p>
+      <p>{{videoList.description}}</p>
       <p>
-        Categoria {{videoList.categoriaId}}
+        Categoria {{videoList.categoryId}}
       </p>
     </v-card-text>
     <v-card-actions>
@@ -40,15 +40,15 @@ import ListVideosItemDTO from '~/models/ListVideosItemDTO'
 // import { Ajuda, Breadcum } from '~/components/Pagina.vue'
 
 export default Vue.extend({
+  props: {
+    videoList: {
+      type: Array,
+      required: true
+    }
+  },
   data () {
     return {
       // videoList: ListVideosItemDTO
-      videoList: {
-        descricao: 'Video Description Example. Video Description Example. Video Description Example.',
-        titulo: 'Video Title',
-        url: 'https://youtube.com',
-        categoriaId: null
-      }
     }
   },
   computed: {
