@@ -32,7 +32,6 @@ export default Vue.extend({
     }).catch( error => {
       console.log('List Videos Error: ' + error.message)
     }
-
     )
   }
 })
