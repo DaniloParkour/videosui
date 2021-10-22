@@ -14,7 +14,7 @@
         Categoria {{videoList.categoryId}}
       </p>
     </v-card-text>
-    <v-card-actions>
+    <v-card-actions v-if="actionsButtons">
       <v-spacer />
       <v-icon
         color="primary"
@@ -44,6 +44,11 @@ export default Vue.extend({
     videoList: {
       type: Array,
       required: true
+    },
+    actionsButtons: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
