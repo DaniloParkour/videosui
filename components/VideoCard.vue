@@ -14,20 +14,15 @@
         Categoria {{videoList.categoryId}}
       </p>
     </v-card-text>
-    <v-card-actions v-if="actionsButtons">
-      <v-spacer />
+    <v-card-actions v-if="footerButtons.length > 0" class="justify-end">
       <v-icon
-        color="primary"
-        to="/login"
+        v-for="item in footerButtons"
+        :key="item.icon"
+        :color="item.color"
+        @click="item.action"
+        class="ml-4"
       >
-        mdi-pencil
-      </v-icon>
-      <div class="mx-2" />
-      <v-icon
-        color="error"
-        to="/login"
-      >
-        mdi-delete
+        {{item.icon}}
       </v-icon>
     </v-card-actions>
   </v-card>
@@ -39,16 +34,20 @@ import ListVideosItemDTO from '~/models/ListVideosItemDTO'
 // import { mapActions, mapGetters } from 'vuex'
 // import { Ajuda, Breadcum } from '~/components/Pagina.vue'
 
+class FooterIcon {
+  icon: string = 'mdi-pencil'
+  color: string = 'blue'
+  action = () => {console.log('Click!')}
+}
+
 export default Vue.extend({
   props: {
     videoList: {
       type: Array,
       required: true
     },
-    actionsButtons: {
-      type: Boolean,
-      required: false,
-      default: false
+    footerButtons: {
+      default: [] as Array<FooterIcon>
     }
   },
   data () {

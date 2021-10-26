@@ -7,7 +7,7 @@
     </v-row>
     <v-row align="center" justify="left">
       <v-col v-for="item in videoList" :key="item.title" cols="3">
-        <VideoCard :videoList="item" actionsButtons/>
+        <VideoCard :videoList="item" :footerButtons="icons"/>
       </v-col>
     </v-row>
   </v-container>
@@ -20,7 +20,19 @@
   export default Vue.extend({
     data () {
       return {
-        videoList: [] as Array<ListVideosItemDTO>
+        videoList: [] as Array<ListVideosItemDTO>,
+        icons: [
+          {
+            icon: 'mdi-pencil',
+            color: 'blue',
+            action: () => {console.log('Click to Edit!')}
+          },
+          {
+            icon: 'mdi-delete',
+            color: 'red',
+            action: () => {console.log('Click to Delete!')}
+          }
+        ]
       }
     },
     mounted() {
