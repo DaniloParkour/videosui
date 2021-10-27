@@ -5,7 +5,7 @@
     </v-card-title>
     <v-card-text>
       <v-card>
-        <a :href="videoList.url">
+        <a :href="videoList.url" target="_blank">
           Video Panel
         </a>
       </v-card>

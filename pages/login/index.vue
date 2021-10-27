@@ -29,7 +29,7 @@
                 />
 
                 <v-layout align-end justify-end>
-                  <v-btn color="primary" @click="loginUser">Login</v-btn>
+                  <v-btn color="primary" @click="login" :loading="loginRequest">Login</v-btn>
                 </v-layout>
               </v-form>
               <b
@@ -43,9 +43,15 @@
   </v-container>
 </template>
 
-<script>
-  export default {
-    data: () => ({
+<script lang="ts">
+
+  import Vue from 'vue'
+  import { mapActions, mapGetters } from 'vuex'
+  import AuthenticateFormDTO from '~/models/AuthenticateFormDTO'
+
+  export default Vue.extend({
+  data () {
+    return {
       valid: true,
       password: '',
       passwordRules: [
@@ -54,12 +60,16 @@
       ],
       email: '',
       loginError: false,
+      loginRequest: false,
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
-    }),
-
+    }
+  },
+    mounted() {
+      this.loginError = false
+    },
     methods: {
       validate () {
         this.$refs.form.validate()
@@ -70,22 +80,20 @@
       resetValidation () {
         this.$refs.form.resetValidation()
       },
-      loginUser () {
+      ...mapActions('user', ['loginUser']),
+      login () {
         this.loginError = false
-        this.$axios.$post('http://localhost:8080/auth', {
+        this.loginRequest = true
+        this.loginUser({
           email: this.email,
-          senha: this.password
-        })
-          .then( resp => {
-            window.localStorage.setItem('userToken', resp.string + ': ' + resp.token)
-            this.$router.push('/user')
-          }).catch( error => {
-            this.loginError = true
-            console.log('Login Error: ' + error.message)
-          }
-          )
-        
+          password: this.password
+        } as AuthenticateFormDTO).then(resp => {
+          this.$router.push('/user')
+        }).catch(error => {
+          console.log(error)
+          this.loginError = true
+        }).finally(() => this.loginRequest = false)
       }
     },
-  }
+  })
 </script>

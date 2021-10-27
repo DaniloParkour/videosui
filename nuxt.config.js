@@ -19,6 +19,13 @@ export default {
     ]
   },
 
+  /*
+  server: {
+    // Configuration that turn local server visible by IP to other computers
+    host: '0.0.0.0' // default: localhost
+  },
+  */
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
