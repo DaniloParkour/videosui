@@ -19,7 +19,7 @@
         v-for="item in footerButtons"
         :key="item.icon"
         :color="item.color"
-        @click="item.action"
+        @click="item.action(videoList.id)"
         class="ml-4"
       >
         {{item.icon}}

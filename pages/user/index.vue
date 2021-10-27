@@ -108,7 +108,19 @@
           {
             icon: 'mdi-delete',
             color: 'red',
-            action: () => {console.log('Click to Delete!')}
+            action: async (id: Number) => {
+              const token = window.localStorage.getItem('Authorization')
+              const header = {
+                  headers: { Authorization: token }
+              }
+              // this.$axios.defaults.headers.common['Authorization'] = token
+              let r = await this.$axios.delete(
+                            'http://localhost:8080/videos/'+id
+                          ).catch(error => {
+                console.log(error)
+              })
+              console.log(r)
+            }
           }
         ]
       }
@@ -120,6 +132,7 @@
         this.videoList = [] as Array<ListVideosItemDTO>
         resp.list.forEach((e: any) => {
           this.videoList.push({
+            id: e.id,
             categoryId: e.categoriaId,
             description: e.descricao,
             title: e.titulo,
@@ -133,8 +146,9 @@
     },
     methods: {
       sendSaveVideo() {
+        const token = window.localStorage.getItem('Authorization')
         const header = {
-            headers: { Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2aWRlb2FwaSIsInN1YiI6IjEiLCJpYXQiOjE2MzUzNTc5MTYsImV4cCI6MTYzNTM2NTExNn0.lkzHi95P-fViYPMBGuVRTOek6dOEZcJLiIp-sSlChLc'}` }
+            headers: { Authorization: token }
         }
         this.$axios.$post(
                       'http://localhost:8080/videos',
@@ -143,7 +157,7 @@
                     ).then(resp => {
           this.addDialog = false
         }).catch(error => {
-          console.log('Save Video Error!')
+          console.log('Save Video Error! ' + error)
         })
       }
     }

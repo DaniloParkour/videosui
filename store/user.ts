@@ -27,7 +27,7 @@ export const actions: ActionTree<RootState, RootState> = {
       email: user.email,
       senha: user.password
     }).then( resp => {
-        window.localStorage.setItem('Authorization', resp.string + ': ' + resp.token)
+        window.localStorage.setItem('Authorization', resp.string + ' ' + resp.token)
         commit('SET_USER', {
             email: user.email,
             profiles: []
