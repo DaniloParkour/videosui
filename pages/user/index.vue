@@ -113,10 +113,11 @@
               const header = {
                   headers: { Authorization: token }
               }
-              // this.$axios.defaults.headers.common['Authorization'] = token
+              this.$axios.defaults.headers.common['Authorization'] = token
               let r = await this.$axios.delete(
                             'http://localhost:8080/videos/'+id
-                          ).catch(error => {
+                          ).then(resp => this.videoList = this.videoList.filter((v: ListVideosItemDTO) => v.id != id))
+                          .catch(error => {
                 console.log(error)
               })
               console.log(r)
@@ -156,7 +157,15 @@
                       header
                     ).then(resp => {
           this.addDialog = false
-        }).catch(error => {
+          this.videoList.push({
+            id: resp.data.id,
+            categoryId: resp.data.categoriaId,
+            description: resp.data.descricao,
+            title: resp.data.titulo,
+            url: resp.data.url
+          } as ListVideosItemDTO)
+        })
+        .catch(error => {
           console.log('Save Video Error! ' + error)
         })
       }
