@@ -103,7 +103,10 @@
           {
             icon: 'mdi-pencil',
             color: 'blue',
-            action: () => {console.log('Click to Edit!')}
+            action: (id: Number) => {
+              this.$router.push(
+                { path: '/editVideo', query: { id } }
+              )}
           },
           {
             icon: 'mdi-delete',
@@ -126,7 +129,8 @@
         ]
       }
     },
-    mounted() {
+
+  mounted() {
       console.log('Creates BASE_URL, and a DTOs_CONVERTER')
       this.$axios.$get('http://localhost:8080/videos?page=0&size=10')
       .then( resp => {
