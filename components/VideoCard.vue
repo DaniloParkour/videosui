@@ -6,15 +6,23 @@
     <v-card-text>
       <v-card>
         <a :href="videoList.url" target="_blank">
-          Video Panel
+          Link Video
         </a>
+        <p>
+          Categoria {{videoList.categoryId}}
+        </p>
       </v-card>
-      <p>{{videoList.description}}</p>
-      <p>
-        Categoria {{videoList.categoryId}}
-      </p>
     </v-card-text>
     <v-card-actions v-if="footerButtons.length > 0" class="justify-end">
+       <v-tooltip top max-width="60%">
+        <template v-slot:activator="{ on, attrs }">
+          <v-icon
+            v-bind="attrs"
+            v-on="on"
+          >mdi-eye</v-icon>
+        </template>
+        <span>{{videoList.description}}</span>
+      </v-tooltip>
       <v-icon
         v-for="item in footerButtons"
         :key="item.icon"
@@ -30,9 +38,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import ListVideosItemDTO from '~/models/ListVideosItemDTO'
-// import { mapActions, mapGetters } from 'vuex'
-// import { Ajuda, Breadcum } from '~/components/Pagina.vue'
 
 class FooterIcon {
   icon: string = 'mdi-pencil'
@@ -52,14 +57,13 @@ export default Vue.extend({
   },
   data () {
     return {
-      // videoList: ListVideosItemDTO
+      showDescription: false
     }
   },
-  computed: {
-    // ...mapGetters('veiculos', ['veiculo']),
-  },
   methods: {
-    // ...mapActions('notify', ['errorNotify']),
+    mouseOver () {
+      this.showDescription = !this.showDescription
+    }
   }
 })
 </script>

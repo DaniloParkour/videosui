@@ -32,6 +32,16 @@
                 <v-icon class="mr-2">mdi-video</v-icon>
                 Add Video
               </v-btn>
+              <v-btn
+                color="#6F3C51"
+                dark
+                block
+                to="/searchvideos"
+                class="mt-8"
+              >
+                <v-icon class="mr-2">mdi-magnify</v-icon>
+                Search Videos
+              </v-btn>
             </div>
             <!-- ---------------------------------------------------------------- -->
           </template>
@@ -130,7 +140,8 @@
       }
     },
 
-  mounted() {
+    mounted() {
+
       console.log('Creates BASE_URL, and a DTOs_CONVERTER')
       this.$axios.$get('http://localhost:8080/videos?page=0&size=10')
       .then( resp => {
