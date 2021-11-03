@@ -26,8 +26,19 @@
         :headers="headers"
         :items="tableItems"
         :items-per-page="5"
-        class="elevation-1"
-      />
+        class="elevation-1 mt-6"
+      >
+        <template #[`item.categoriaId`]="{ item }">
+          <v-icon>
+            {{getIcon(item.categoriaId)}}
+          </v-icon>
+        </template>
+
+        <template #[`item.url`]="{ item }">
+          <a :href="item.url" target="_blank">{{item.url}}</a>
+        </template>
+
+      </v-data-table>
   </v-container>
 </template>
 
@@ -66,6 +77,22 @@
           console.log('Search Video Error: ' + error.message)
         }
       )
+    },
+    getIcon(id: Number) {
+      if(id === 1)
+        return 'mdi-unicorn-variant'
+      if(id === 2)
+        return 'mdi-nature'
+      if(id === 3)
+        return 'mdi-hiking'
+      if(id === 4)
+        return 'mdi-pistol'
+      if(id === 5)
+        return 'mdi-weight-lifter'
+      if(id === 6)
+        return 'mdi-school'
+      
+      return 'mdi-checkbox-blank-circle'
     }
   },
 })
